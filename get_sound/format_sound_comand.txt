@@ -1,0 +1,8 @@
+E:\dev\cats\get_sound>sox -t raw -r 8000 -e signed-integer -b 16 -c 1 lay_.wav output.wav
+
+Сначало alaw 8000 моно 64 кб
+Потом pcm 16 моно
+
+
+sox -t raw -r 8000 -e signed-integer -b 16 -c 1 E:\dev\cats\get_sound\lay.pcm -d
+sox -t raw -r 8000 -e signed-integer -b 16 -c 1 lay.pcm output.wav

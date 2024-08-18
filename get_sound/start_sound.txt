@@ -1,0 +1,1 @@
+E:\dev\cats\get_sound>perl sofiactl.pl --user admin --pass Lud2704asz --host 192.168.1.41 --port 34567 --command Talk --if lay_r.pcm
