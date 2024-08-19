@@ -18,9 +18,9 @@ CONF = 0.35
 MAX_DET = 1
 port = 8899
 number_recorded_pictures = 1000
+DEBUG_IMAGE = True
 
 # Ограничение на отправку сообщений
-
 MESSAGE_COOLDOWN = timedelta(minutes=2)
 
 
@@ -136,16 +136,16 @@ class CameraProcessor(multiprocessing.Process):
 
     def process_snapshot(self):
         snapshot = self.get_snapshot()
-        # self.logger.debug(f"Array size snapshot {snapshot.shape}") #TODO удалить
         if snapshot is not None:
             results_nano, nano_snapshot = self.check_image_with_model(snapshot, self.model_nano, CONF, MAX_DET)
-            # self.logger.debug(f"results nano {results_nano}") #TODO удалить
             if results_nano:
-                # self.save_image(nano_snapshot, 'nano') #TODO удалить
-                # self.save_image(snapshot, 'row_nano') #TODO удалить
+                if DEBUG_IMAGE:
+                    self.save_image(nano_snapshot, 'nano')
+                    self.save_image(snapshot, 'row_nano')
                 results_heavy, heavy_snapshot = self.check_image_with_model(snapshot, self.model_heavy, CONF, MAX_DET)
                 if results_heavy:
-                    self.save_image(snapshot, 'row_heavy')  # TODO удалить
+                    if DEBUG_IMAGE:
+                        self.save_image(snapshot, 'row_heavy')
                     self.send_alarm_and_notification(heavy_snapshot, 'heavy')
                     time.sleep(10)
 
